@@ -1,0 +1,14 @@
+diff -aurN origin-a41c9ff38d52fd508481c3c2bac13d52871fde02.org/Godeps/_workspace/src/k8s.io/kubernetes/pkg/kubelet/kubelet.go origin-a41c9ff38d52fd508481c3c2bac13d52871fde02/Godeps/_workspace/src/k8s.io/kubernetes/pkg/kubelet/kubelet.go
+--- origin-a41c9ff38d52fd508481c3c2bac13d52871fde02.org/Godeps/_workspace/src/k8s.io/kubernetes/pkg/kubelet/kubelet.go	2016-01-08 11:44:36.951112325 +0900
++++ origin-a41c9ff38d52fd508481c3c2bac13d52871fde02/Godeps/_workspace/src/k8s.io/kubernetes/pkg/kubelet/kubelet.go	2016-01-08 11:45:40.965230894 +0900
+@@ -1336,7 +1336,9 @@
+ 	if kl.clusterDomain != "" {
+ 		nsSvcDomain := fmt.Sprintf("%s.svc.%s", pod.Namespace, kl.clusterDomain)
+ 		svcDomain := fmt.Sprintf("svc.%s", kl.clusterDomain)
+-		dnsSearch = append([]string{nsSvcDomain, svcDomain, kl.clusterDomain}, hostSearch...)
++		nsPodDomain := fmt.Sprintf("%s.pod.%s", pod.Namespace, kl.clusterDomain)
++		podDomain := fmt.Sprintf("pod.%s", kl.clusterDomain)
++		dnsSearch = append([]string{nsSvcDomain, svcDomain, kl.clusterDomain, nsPodDomain, podDomain}, hostSearch...)
+ 	} else {
+ 		dnsSearch = hostSearch
+ 	}
